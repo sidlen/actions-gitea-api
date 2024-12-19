@@ -1,0 +1,32 @@
+name: 'Gitea PR info'
+description: 'Get pull request info from gitea api'
+author: 'sidlen'
+inputs:
+  gitea_api_url:
+    description: 'Gitea api url'
+    required: true
+    default: "${{ gitea.api_url }}"
+  gitea_repository:
+    description: 'Gitea org/repository name'
+    required: true
+    default: "${{ gitea.repository }}"
+  gitea_api_token:
+    description: 'Gitea api token'
+    required: true
+    default: "${{ gitea.token }}"
+  gitea_commit_sha:
+    description: 'Gitea commit sha'
+    required: true
+    default: "${{ gitea.sha }}"
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    GITEA_API_URL: "${{ inputs.gitea_api_url }}"
+    GITEA_REPOSITORY: "${{ inputs.gitea_repository }}"
+    GITEA_API_TOKEN: "${{ inputs.gitea_api_token }}"
+    GITEA_COMMIT_SHA: "${{ inputs.gitea_commit_sha }}"
+outputs:
+  output_data:
+    description: 'dict with approvers_emails list and pr_url'
