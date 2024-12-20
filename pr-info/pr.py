@@ -30,4 +30,4 @@ output_data = {
   "pr_merge_user_email": pr_merge_user_email
 }
 with open('output.json', 'w', encoding='utf-8') as f:
-    json.dump(output_data, f, indent=4, ensure_ascii=False)
+    json.dump(output_data, f, ensure_ascii=False)
