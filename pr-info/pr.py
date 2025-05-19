@@ -12,6 +12,7 @@ approvers_emails = []
 
 def getUserEmail(user):
   response = requests.get(f"{gitea_api_url}/users/{user}", headers=headers)
+  print(response.json())
   return response.json()["email"]
 
 response = requests.get(f"{gitea_api_url}/repos/{gitea_repository}/pulls", headers=headers)
