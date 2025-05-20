@@ -14,15 +14,17 @@ def getUserEmail(user):
   response = requests.get(f"{gitea_api_url}/users/{user}", headers=headers)
   return response.json()["email"]
 
-response = requests.get(f"{gitea_api_url}/repos/{gitea_repository}/pulls", headers=headers)
-print(response.json())
-for pr in response.json():
+all_pr = requests.get(f"{gitea_api_url}/repos/{gitea_repository}/pulls", headers=headers)
+for pr in all_pr.json():
     if pr["merge_commit_sha"] == commit_sha:
-        pr_url = pr["html_url"]
-        pr_requster_email = getUserEmail(pr["user"]["login"])
-        pr_merge_user_email = getUserEmail(pr["merged_by"]["login"])
-        for approver in pr["requested_reviewers"]:
-            approvers_emails.append(getUserEmail(approver["login"]))
+        target_pr = requests.get(f"{gitea_api_url}/repos/{gitea_repository}/pulls/{pr["number"]}", headers=headers)
+        break
+pr = target_pr.json()
+pr_url = pr["html_url"]
+pr_requster_email = getUserEmail(pr["user"]["login"])
+pr_merge_user_email = getUserEmail(pr["merged_by"]["login"])
+for approver in pr["requested_reviewers"]:
+    approvers_emails.append(getUserEmail(approver["login"]))
 
 output_data = {
   "approvers_emails":approvers_emails,
