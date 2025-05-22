@@ -32,5 +32,5 @@ output_data = {
   "pr_requster_email": pr_requster_email,
   "pr_merge_user_email": pr_merge_user_email
 }
-with open('output.json', 'w', encoding='utf-8') as f:
+with open('gitoutput.json', 'w', encoding='utf-8') as f:
     json.dump(output_data, f, ensure_ascii=False)
