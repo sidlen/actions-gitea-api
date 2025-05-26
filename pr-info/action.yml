@@ -10,6 +10,10 @@ inputs:
     description: 'Gitea org/repository name'
     required: true
     default: "${{ gitea.repository }}"
+  gitea_organization:
+    description: 'Gitea org name'
+    required: true
+    default: "${{ gitea.repository_owner }}"
   gitea_api_token:
     description: 'Gitea api token'
     required: true
@@ -27,6 +31,7 @@ runs:
     GITEA_REPOSITORY: "${{ inputs.gitea_repository }}"
     GITEA_API_TOKEN: "${{ inputs.gitea_api_token }}"
     GITEA_COMMIT_SHA: "${{ inputs.gitea_commit_sha }}"
+    GITEA_ORGANIZATION: "${{ inputs.gitea_organization }}"
 outputs:
   output_data:
     description: 'dict with approvers_emails list and pr_url'
